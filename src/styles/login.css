@@ -1,0 +1,35 @@
+.sign{
+text-align: left;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 24px;
+color: #000000;
+}
+.btnlayout{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+ 
+}
+
+
+@media only screen and (min-width: 600px) {
+.signup{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.signimg{
+width: 55%;
+min-height: 500px;
+}
+.signform{
+padding: 20px 20px 20px 20px;
+}
+}

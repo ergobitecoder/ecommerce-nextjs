@@ -1,0 +1,47 @@
+.filterdisplay .css-vowbd2-MuiGrid-root {
+    padding: 0px;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+
+}
+
+.categeorylinks a {
+    padding: 0px 5px 5px 5px;
+
+}
+
+.categeorylinks a:hover {
+    background-color: #f5f5f5;
+    /* padding: 0px 5px 5px 5px; */
+    color: #FF00AE;
+
+}
+
+.selected {
+    background-color: #f5f5f5;
+    /* padding: 0px 5px 5px 5px; */
+}
+
+.selectedtext {
+    color: #FF00AE;
+    font-weight: 700;
+}
+
+.childcategory {
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.parentcategory {
+    font-size: 22px;
+    font-weight: 500;
+    text-align: left;
+    /* margin-top: 10px; */
+}
