@@ -35,7 +35,7 @@ function ThankYou_c(props) {
 	//     const productRes = await saveRating(ratingData);
 	// }
 
-
+//
 	useEffect(() => {
 		const fetchData = async () => {
 			if (uniqueOrderId) {

@@ -6,7 +6,7 @@ if (typeof window !== 'undefined') {
  
 const accessToken = window.localStorage.getItem('accessToken');
 }
-
+//function to get new arrivals category Ids 
 export const getProductCsm = async () => {
     try {
         const response = await axios.get(`${api}/cms/home_new_arrivals`, );
@@ -30,7 +30,7 @@ export const getFiltersList = async (id) => {
         console.log(error);
     }
 };
-
+//function to get new arrivals category list 
 export const getProductsList = async (csm, categoryId, start, limit, selectedValues, priceRange, sortOrder) => {
     console.log(priceRange, 'priceRange');
     try {

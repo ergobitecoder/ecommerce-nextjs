@@ -41,6 +41,7 @@ const Contact = (props) => {
 	const [eemail, setEEmail] = useState("");
 	const [ephone, setEPhone] = useState("");
 	const [esubject, setESubject] = useState("");
+
 	useEffect(() => {
 		if (name.data === "" && name.isChanged === true) {
 			setEName("Name cant be empty");
@@ -48,6 +49,7 @@ const Contact = (props) => {
 			setEName("");
 		}
 	}, [name.data]);
+
 	useEffect(() => {
 		if (emailId.data === "" && emailId.isChanged === true) {
 			setEEmail("Email id cant be empty");
@@ -55,6 +57,7 @@ const Contact = (props) => {
 			setEEmail("");
 		}
 	}, [emailId.data]);
+
 	useEffect(() => {
 		if (phone.data === "" && phone.isChanged === true) {
 			setEPhone("phone cant be empty");
@@ -62,6 +65,7 @@ const Contact = (props) => {
 			setEPhone("");
 		}
 	}, [phone.data]);
+
 	useEffect(() => {
 		if (subject.data === "" && subject.isChanged === true) {
 			setESubject("subject cant be empty");
@@ -70,6 +74,7 @@ const Contact = (props) => {
 		}
 	}, [subject.data]);
 
+//function to send email to from user to client
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (name.data === "") {
@@ -89,20 +94,18 @@ const Contact = (props) => {
 			phone: phone,
 			emailId: emailId,
 			subject: subject,
-
 		}
 		if (response.name.data !== '' && response.phone.data !== '' && response.emailId.data !== '' && response.subject.data !== '') {
 			const contactData = response;
 			const contactRes = await contact(contactData);
 
 			if (contactRes) {
-				router('/');
+				router.push('/');
 			} else {
 				console.log('error');
 			}
 		}
 	}
-
 
 	useEffect(() => {
 		window.scrollTo(0, 0);

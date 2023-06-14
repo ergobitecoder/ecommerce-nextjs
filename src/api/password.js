@@ -1,3 +1,4 @@
+//validation for password
 export const ValidatePassword = async (params) => {
   var regularExpression =
     /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;

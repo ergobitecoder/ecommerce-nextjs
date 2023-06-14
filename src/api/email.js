@@ -1,3 +1,4 @@
+//validation for email
 export const validateEmail = async (params) => {
   var validRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

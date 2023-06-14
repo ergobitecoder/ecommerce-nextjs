@@ -1,4 +1,4 @@
-const api = process.env.REACT_APP_BASE_URL_NODE;
+const api = process.env.NEXT_PUBLIC_API_URL_NODE
 
 const URL = {
     contact: {

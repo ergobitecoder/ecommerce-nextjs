@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { getRefreshToken } from './auth';
 
-const api = process.env.REACT_APP_BASE_URL_NODE;
+const api = process.env.NEXT_PUBLIC_API_URL_NODE
+
+//function to send mail from user
 export const contact = async (data) => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');

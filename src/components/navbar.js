@@ -16,7 +16,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
-// import '../pages/navbar.css'
 import Autosuggest from "react-autosuggest";
 import { Menu, MenuItem, Typography } from '@mui/material';
 import { AccountCircle, ExitToApp, ListAlt } from '@mui/icons-material';

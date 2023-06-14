@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { getRefreshToken } from './auth';
 
-const api = process.env.REACT_APP_BASE_URL_NODE;
+const api = process.env.NEXT_PUBLIC_API_URL_NODE;
 
+//function to create order
 export const createOrder = async (data) => {
 	let payload;
 	try {
@@ -16,7 +17,7 @@ export const createOrder = async (data) => {
 			currency: data.currency,
 			notes: data.notes
 		}
-
+		//if there access token is not availble in localstorage 
 		if (!accessToken) {
 			await getRefreshToken();
 			accessToken = window.localStorage.getItem('accessToken');
@@ -28,6 +29,7 @@ export const createOrder = async (data) => {
 	} catch (error) {
 		if (error) {
 			console.log(error);
+			//if access token is expired getRefreshToken() will refresh token
 			var tokenres = await getRefreshToken();
 			if (tokenres) {
 				window.localStorage.setItem('accessToken', tokenres.data.result.accessToken);
@@ -55,6 +57,7 @@ export const updateOrder = async (data) => {
 	}
 };
 
+//to get order details which is done currently with unique orderId
 export const getOrderDetails = async (uniqueOrderId) => {
 	const payload = {
 		uniqueOrderId: uniqueOrderId,
@@ -70,7 +73,10 @@ export const getOrderDetails = async (uniqueOrderId) => {
 		console.log(error);
 	}
 };
+
+//to get order list of logged in user 
 export const getOrderList = async (userId, start, limit) => {
+	let accessToken = window.localStorage.getItem('accessToken');
 	const payload = {
 		userId: userId
 	}
@@ -79,6 +85,7 @@ export const getOrderList = async (userId, start, limit) => {
 		return response
 	}
 	catch (error) {
+		console.log(error, 'ordelisterror');
 		if (error.response.data.message === 'Invalid token') {
 			await getRefreshToken();
 		}

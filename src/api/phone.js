@@ -1,3 +1,4 @@
+//validation for mobile number
 export const ValidatePhone = async (params) => {
     try {
         if (params.phone.length === 0 && params.isChanged) {

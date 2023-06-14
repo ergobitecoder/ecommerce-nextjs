@@ -10,13 +10,14 @@ import { createOrder } from "@/api/order";
 import ErrorIcon from '@mui/icons-material/Error';
 import ErrorDisplay from "@/components/ErrorDisplay";
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
-// import LoaderCartElement from "../../../components/loader/LoaderCartElement";
 import { paymentgetway } from "@/api/payment";
 import { useRouter } from "next/router";
 import { editUserAddress, getLoggedUserData, getUserAddressData, submitUserAddress } from "@/api/auth";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import SEO from "@/next-seo.config";
+import LoaderCartElement from "@/components/loader/LoaderCartElement";
+
 function Checkout_c(props) {
 	const classes = useStyles();
 	const router = useRouter();
@@ -132,10 +133,8 @@ function Checkout_c(props) {
 	});
 	const [status, setStatus] = useState('');
 	const { cartState } = useContext(CartContext);
-
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
-
 	const [productId, setProductId] = useState([]);
 	const [productVariantId, setProductVariantId] = useState([]);
 	const [totalPrice, setTotalPrice] = useState();
@@ -153,8 +152,8 @@ function Checkout_c(props) {
 		data: "",
 		isChanged: false,
 	});
-
 	const [productPackageCost, setProductPackageCost] = useState('')
+
 
 	const [Ename, setEname] = useState('');
 	const [EfirstName, setEfirstName] = useState('');
@@ -258,6 +257,7 @@ function Checkout_c(props) {
 			setEaddress1("");
 		}
 	}, [address1.data]);
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (firstName.data === "") {
@@ -378,7 +378,7 @@ function Checkout_c(props) {
 
 	const [error, setError] = useState("");
 
-//function to create order
+	//function to create order
 	const handleCreateOrder = async (e, userAddressId) => {
 		e.preventDefault();
 		const response = {
@@ -388,18 +388,21 @@ function Checkout_c(props) {
 			userAddressId: userAddressId,
 			notes: notes.data
 		}
-		// console.log(response);
 		const OrderresData = response;
 		if (accessToken) {
 			const Orderres = await createOrder(OrderresData);//api call to create order
 
+			//to get unique order id from orders created 
 			const uniqueOrderId = Orderres.data.result.map((ele) => ele.uniqueOrderId);
 			const uniqueOrderIdSet = new Set(uniqueOrderId);
 			const uniqueOrderIdString = Array.from(uniqueOrderIdSet).join(", ");
 
+			//to get currency from orders created 
 			const currencyRes = Orderres.data.result.map((ele) => ele.currency);
 			const currencySet = new Set(currencyRes);
 			const currency = Array.from(currencySet).join(", ");
+
+			//to get total price from orders created 
 			const totalPriceRes = Orderres.data.result.map((ele) => (ele.totalPrice));
 			const totalPriceSum = totalPriceRes.reduce((acc, cur) => acc + cur, 0);
 
@@ -420,10 +423,10 @@ function Checkout_c(props) {
 				}
 				if (paymentRes) {
 					const paymentData = paymentRes;
-					const paymentsuccess = await paymentgetway(paymentData);
+					const paymentsuccess = await paymentgetway(paymentData);//api call to create payment url
 					if (paymentsuccess) {
 						const url = paymentsuccess.data.result;
-						 window.location.href(url);
+						router.push(url);  //to redirect to payment url
 					}
 				}
 			} else {
@@ -854,11 +857,10 @@ function Checkout_c(props) {
 				<div className={classes.cartParent}>
 					{
 						cartState.loading ? (
-							<div>loading...</div>
+							<div><LoaderCartElement/></div>
 						) :
 							cartItems?.length > 0 ? (
 								cartItems.map((data, index) => {
-									// console.log(data);
 									return (
 										<div className={classes.cartDetails} key={index}>
 											<div className={classes.cartList}>
@@ -871,8 +873,6 @@ function Checkout_c(props) {
 												<div className={classes.middleCart}>
 													<div>
 														<div className={classes.cartTitle}>{data.productId.name.replace(/(?:^|\s)\S/g, c => c.toUpperCase())} ({data.productVariantId.name.replace(/(?:^|\s)\S/g, c => c.toUpperCase())})</div>
-														{/* <div className={classes.priceperpiece}>Price : <CurrencyRupeeIcon sx={{ fontSize: '12px' }} /> {data.productVariantId.price}</div> */}
-
 														<div className={classes.alignSizeQuantity}>
 															{data.productVariantId.attribute?.slice(0, 2).map((attribute, index, arr) => {
 																return (
@@ -884,7 +884,6 @@ function Checkout_c(props) {
 															})}
 
 														</div>
-														{/* <div className={classes.priceperpiece}>Net Weight : {(data.productVariantId.weight.netWeight * data.qty)}</div> */}
 														<div className={classes.priceperpiece}>Package Weight : {(data.productVariantId.weight.packageWeight * data.qty)} Kg</div>
 													</div>
 												</div>
@@ -916,10 +915,4 @@ function Checkout_c(props) {
 
 	);
 }
-
-Checkout_c.propTypes = {
-	bgcolor: PropTypes.string,
-	size: PropTypes.oneOf(["small", "medium", "large"]),
-};
-
 export default Checkout_c;

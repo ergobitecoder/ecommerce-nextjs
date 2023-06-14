@@ -27,19 +27,20 @@ function OrderList_c(props) {
 		setPage(pageNum - 1);
 	}
 
+	//to fetch order data of logged in user
 	useEffect(() => {
 		const fetchData = async () => {
 			const start = page * 10;
-			console.log(userId, 'dvn');
-			const ordersDetails = await getOrderList(userId, start, 10);
-			console.log(ordersDetails, 'ordersDetails');
-
+			const ordersDetails = await getOrderList(userId, start, 10);//api call to get order data of logged in user
 			setOrderItems(ordersDetails.data.result);
 			setLoading(false);
+
+			//to get total price of all product variants from order list
 			const productVariantTotalPrice = ordersDetails.data.result.map((ele) => ele.totalPrice);
 			const totalPrice = productVariantTotalPrice.reduce((accumulator, currentValue) => accumulator + currentValue);
 			setTotalPrice(totalPrice);
 
+			//to set total pages for pagination from order count
 			const totalOrders = ordersDetails.data.total;
 			const totalPages = Math.ceil(totalOrders / 10);
 			setTotalPages(totalPages);
@@ -49,7 +50,7 @@ function OrderList_c(props) {
 	}, [page]);
 
 
-
+	//to create pagination 
 	const showArrows = totalPages > 1;
 	let pageNumbers = [];
 	if (showArrows) {
@@ -78,21 +79,13 @@ function OrderList_c(props) {
 				<OrderList elevation={5} {...props} onClick={props.onClick}>
 					<div className={classes.orderListhead}>
 						<div className={classes.orderListhead1}>
-							{/* <div className={classes.estimatedTltle}>Estimated Delievery</div> */}
 						</div>
-						{/* <div className={classes.estimatedTltle}>Invoice</div> */}
 					</div>
 					<div>
 						{loading ? (
 							<div><LoaderCartElement /></div>
 						) : orderItems?.length > 0 ? (
 							orderItems.map((data, index) => {
-								// console.log(data);
-								// const date = new Date(data.createdAt);
-								// const month = date.toLocaleString('default', { month: 'long' });
-								// const day = date.getDate();
-								// const year = date.getFullYear();
-								// const formattedDate = `${month} ${day}, ${year}`;
 								return (
 									<div className={classes.cartList} key={index}>
 

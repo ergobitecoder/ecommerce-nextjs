@@ -20,7 +20,6 @@ import SEO from "@/next-seo.config";
 
 const Login = () => {
 	const router = useRouter();
-
 	const [email, setEmail] = useState({
 		field: "email",
 		email: "",
@@ -40,6 +39,8 @@ const Login = () => {
 		var userId = window.localStorage?.getItem("authToken");
 		var cartCount = window.localStorage?.getItem("cartCount")
 	}
+
+	// function to verify logged in user
 	const foo = async (email, password) => {
 		const data = await verifyUser(email, password);
 		if (data === 'Email Id not Found') {
@@ -81,6 +82,7 @@ const Login = () => {
 		});
 	}, [password.password]);
 
+	//function to login the user
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (email.email === "") {
@@ -100,8 +102,8 @@ const Login = () => {
 		if (data.get("email") !== "" && data.get("password") !== "") {
 			foo(data.get("email"), data.get("password"));
 		}
-
 	};
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);

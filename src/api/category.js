@@ -7,6 +7,7 @@ if (typeof window !== 'undefined') {
 const accessToken = window.localStorage.getItem('accessToken');
 }
 
+//function to get popular category Ids 
 export const getCsm = async () => {
     try {
         const response = await axios.get(`${api}/cms/home_popular_category`, );
@@ -19,7 +20,7 @@ export const getCsm = async () => {
         console.log(error);
     }
 };
-
+//function to get popular category list 
 export const getCategorysList = async (csmCategoryData, id, priceRange, sortOrder) => {
     try {
         let data;
@@ -51,7 +52,7 @@ export const getCategorysList = async (csmCategoryData, id, priceRange, sortOrde
     }
 };
 
-
+//function to get parent category list 
 export const getParentList = async () => {
     try {
         const response = await axios.post(`${api}/masterCategory/categoriesdata`, );
@@ -65,6 +66,7 @@ export const getParentList = async () => {
     }
 };
 
+//function to get product list in suggestion
 export const autoSuggestion = async (data) => {
     try {
         const postData = {
